@@ -5,7 +5,13 @@ import logging
 
 from fastapi import APIRouter, HTTPException
 
-from app.models.command import CommandRequest, CommandResponse, EditorAction
+from pydantic import BaseModel
+from typing import Optional, Any, Dict
+
+class CommandRequest(BaseModel):
+    command: str
+    timeline_state: Optional[Dict[str, Any]] = None
+    model: Optional[str] = None
 from app.services.model_backend import llm_backend
 from app.services.stream_utils import streamed_llm_response
 
