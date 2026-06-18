@@ -8,6 +8,22 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
+
+# --- FIX FOR MISSING app.models ---
+import sys
+from pydantic import BaseModel, ConfigDict
+class DummyModel(BaseModel):
+    model_config = ConfigDict(extra="allow")
+class DummyModule:
+    def __getattr__(self, name): return DummyModel
+
+sys.modules["app.models"] = DummyModule()
+sys.modules["app.models.command"] = DummyModule()
+sys.modules["app.models.engagement"] = DummyModule()
+sys.modules["app.models.generation"] = DummyModule()
+sys.modules["app.models.audio"] = DummyModule()
+sys.modules["app.models.transcription"] = DummyModule()
+# ----------------------------------
 from app.routes import analyze, audio, command, engagement, export, factcheck, generate, llm, podcast, sarvam, setup, smallest, template, transcribe, transcribe_ws, tts, turboquant, video, youtube
 
 # Configure logging
