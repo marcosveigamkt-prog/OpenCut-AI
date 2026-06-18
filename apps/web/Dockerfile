@@ -1,4 +1,4 @@
-FROM oven/bun:alpine AS base
+FROM oven/bun:1-slim AS base
 
 FROM base AS pruner
 
