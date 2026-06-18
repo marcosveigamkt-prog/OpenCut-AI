@@ -123,11 +123,11 @@ services:
       ollama:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8420/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8420/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 30s
+      start_period: 120s
 
   whisper-service:
     build:
@@ -147,7 +147,7 @@ services:
         limits:
           memory: 1g
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8421/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8421/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -169,7 +169,7 @@ services:
         limits:
           memory: 3g
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8422/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8422/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -190,7 +190,7 @@ services:
         limits:
           memory: 1g
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8423/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8423/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -212,7 +212,7 @@ services:
         limits:
           memory: 1g
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8424/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8424/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -232,7 +232,7 @@ services:
         limits:
           memory: 512m
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8425/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8425/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -257,7 +257,7 @@ services:
         limits:
           memory: 2g
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8430/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8430/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -307,7 +307,7 @@ services:
       ai-backend:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:3000/api/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
