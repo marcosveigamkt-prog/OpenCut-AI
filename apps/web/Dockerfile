@@ -55,8 +55,7 @@ ENV FREESOUND_CLIENT_ID=$FREESOUND_CLIENT_ID
 ENV FREESOUND_API_KEY=$FREESOUND_API_KEY
 
 WORKDIR /app/apps/web
-RUN --mount=type=cache,target=/app/apps/web/.next/cache \
-    bun run build
+RUN bun run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
