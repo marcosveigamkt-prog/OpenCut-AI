@@ -62,6 +62,7 @@ class YouTubeService:
             "--no-download",
             "--no-warnings",
             "--no-playlist",
+            "--extractor-args", "youtube:player_client=android",
             url,
         ]
 
@@ -135,6 +136,7 @@ class YouTubeService:
             "--audio-quality", "0",
             "--no-playlist",
             "--no-warnings",
+            "--extractor-args", "youtube:player_client=android",
             "-o", os.path.join(job_dir, "audio.%(ext)s"),
             url,
         ]
@@ -201,6 +203,7 @@ class YouTubeService:
                 "--skip-download",
                 "--no-playlist",
                 "--no-warnings",
+                "--extractor-args", "youtube:player_client=android",
                 "-o", os.path.join(job_dir, "subs.%(ext)s"),
                 url,
             ]
@@ -240,6 +243,7 @@ class YouTubeService:
             "--skip-download",
             "--no-playlist",
             "--no-warnings",
+            "--extractor-args", "youtube:player_client=android",
             "-o", os.path.join(job_dir, "subs.%(ext)s"),
             url,
         ]
@@ -423,6 +427,7 @@ class YouTubeService:
             "--merge-output-format", "mp4",
             "--no-playlist",
             "--no-warnings",
+            "--extractor-args", "youtube:player_client=android",
             "-o", os.path.join(job_dir, "full_video.%(ext)s"),
             url,
         ]
