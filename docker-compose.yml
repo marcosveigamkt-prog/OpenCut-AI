@@ -304,6 +304,8 @@ services:
     networks:
       - default
       - dokploy-network
+    healthcheck:
+      disable: true
 
 volumes:
   postgres_data:
