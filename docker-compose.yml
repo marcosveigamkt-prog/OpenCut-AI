@@ -99,6 +99,7 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
       
       # HTTPS Router
       - "traefik.http.routers.opencut-ai.rule=Host(`167-86-99-131.sslip.io`) && PathPrefix(`/api/ai`)"
@@ -289,6 +290,7 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=dokploy-network"
       
       # HTTPS Router
       - "traefik.http.routers.opencut-web.rule=Host(`167-86-99-131.sslip.io`)"
