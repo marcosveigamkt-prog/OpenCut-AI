@@ -107,8 +107,15 @@ services:
       - "traefik.http.middlewares.opencut-ai-strip.stripprefix.prefixes=/api/ai"
       - "traefik.http.routers.opencut-ai.middlewares=opencut-ai-strip"
       - "traefik.http.services.opencut-ai.loadbalancer.server.port=8420"
+      
+      # HTTP Router (Redirects to HTTPS)
+      - "traefik.http.routers.opencut-ai-http.rule=Host(`167-86-99-131.sslip.io`) && PathPrefix(`/api/ai`)"
+      - "traefik.http.routers.opencut-ai-http.entrypoints=web"
+      - "traefik.http.middlewares.opencut-ai-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.opencut-ai-http.middlewares=opencut-ai-redirect-https"
     networks:
       - default
+      - dokploy-network
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8420/health || exit 1"]
       interval: 30s
@@ -288,10 +295,17 @@ services:
       - "traefik.http.routers.opencut-web.entrypoints=websecure"
       - "traefik.http.routers.opencut-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.opencut-web.loadbalancer.server.port=3000"
+      
+      # HTTP Router (Redirects to HTTPS)
+      - "traefik.http.routers.opencut-web-http.rule=Host(`167-86-99-131.sslip.io`)"
+      - "traefik.http.routers.opencut-web-http.entrypoints=web"
+      - "traefik.http.middlewares.opencut-web-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.opencut-web-http.middlewares=opencut-web-redirect-https"
     networks:
       - default
+      - dokploy-network
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -311,6 +325,8 @@ volumes:
   image_generated:
 
 networks:
+  dokploy-network:
+    external: true
   default:
     name: opencut-network
     driver: bridge
