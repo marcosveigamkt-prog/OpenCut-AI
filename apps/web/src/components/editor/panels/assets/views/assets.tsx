@@ -199,6 +199,29 @@ export function MediaView() {
 		<>
 			<input {...fileInputProps} />
 
+			{isProcessing && (
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+					<div className="flex w-full max-w-sm flex-col items-center gap-4 rounded-xl border bg-card p-6 shadow-lg animate-in fade-in zoom-in-95 duration-200">
+						<div className="text-lg font-semibold">Processing Media</div>
+						<div className="w-full">
+							<div className="flex justify-between text-sm text-muted-foreground mb-2">
+								<span>Preparing files...</span>
+								<span className="font-medium text-foreground">{Math.round(progress)}%</span>
+							</div>
+							<div className="h-2 w-full overflow-hidden rounded-full bg-secondary">
+								<div 
+									className="h-full bg-primary transition-all duration-300 ease-out" 
+									style={{ width: `${progress}%` }} 
+								/>
+							</div>
+						</div>
+						<div className="text-xs text-muted-foreground text-center mt-2">
+							Please wait. Large videos may take a minute to generate thumbnails and optimize for editing.
+						</div>
+					</div>
+				</div>
+			)}
+
 			<PanelView
 				title="Assets"
 				actions={
@@ -227,8 +250,8 @@ export function MediaView() {
 				{isDragOver || filteredMediaItems.length === 0 ? (
 					<MediaDragOverlay
 						isVisible={true}
-						isProcessing={isProcessing}
-						progress={progress}
+						isProcessing={false} // Progress is now handled by the full-screen overlay
+						progress={0}
 						onClick={openFilePicker}
 					/>
 				) : (
