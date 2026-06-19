@@ -112,8 +112,8 @@ services:
       # HTTP Router (Redirects to HTTPS)
       - "traefik.http.routers.opencut-ai-http.rule=Host(`167-86-99-131.nip.io`) && PathPrefix(`/api/ai`)"
       - "traefik.http.routers.opencut-ai-http.entrypoints=web"
-      - "traefik.http.middlewares.opencut-redirect-https.redirectscheme.scheme=https"
-      - "traefik.http.routers.opencut-ai-http.middlewares=opencut-redirect-https"
+      - "traefik.http.middlewares.opencut-ai-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.opencut-ai-http.middlewares=opencut-ai-redirect-https"
     networks:
       - default
       - dokploy-network
@@ -301,8 +301,8 @@ services:
       # HTTP Router (Redirects to HTTPS)
       - "traefik.http.routers.opencut-web-http.rule=Host(`167-86-99-131.nip.io`)"
       - "traefik.http.routers.opencut-web-http.entrypoints=web"
-      - "traefik.http.middlewares.opencut-redirect-https.redirectscheme.scheme=https"
-      - "traefik.http.routers.opencut-web-http.middlewares=opencut-redirect-https"
+      - "traefik.http.middlewares.opencut-web-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.opencut-web-http.middlewares=opencut-web-redirect-https"
     networks:
       - default
       - dokploy-network
