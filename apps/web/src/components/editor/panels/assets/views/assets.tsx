@@ -84,6 +84,10 @@ export function MediaView() {
 
 		setIsProcessing(true);
 		setProgress(0);
+		
+		// Yield to the browser paint cycle so the Popup appears BEFORE heavy parsing freezes the tab
+		await new Promise(resolve => setTimeout(resolve, 50));
+		
 		try {
 			const processedAssets = await processMediaAssets({
 				files,
