@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 import { PanelView } from "@/components/editor/panels/assets/views/base-view";
 import { MediaDragOverlay } from "@/components/editor/panels/assets/drag-overlay";
 import { DraggableItem } from "@/components/editor/panels/assets/draggable-item";
@@ -203,28 +204,7 @@ export function MediaView() {
 		<>
 			<input {...fileInputProps} />
 
-			{isProcessing && (
-				<div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-					<div className="flex w-full max-w-sm flex-col items-center gap-4 rounded-xl border bg-card p-6 shadow-lg animate-in fade-in zoom-in-95 duration-200">
-						<div className="text-lg font-semibold">Processing Media</div>
-						<div className="w-full">
-							<div className="flex justify-between text-sm text-muted-foreground mb-2">
-								<span>Preparing files...</span>
-								<span className="font-medium text-foreground">{Math.round(progress)}%</span>
-							</div>
-							<div className="h-2 w-full overflow-hidden rounded-full bg-secondary">
-								<div 
-									className="h-full bg-primary transition-all duration-300 ease-out" 
-									style={{ width: `${progress}%` }} 
-								/>
-							</div>
-						</div>
-						<div className="text-xs text-muted-foreground text-center mt-2">
-							Please wait. Large videos may take a minute to generate thumbnails and optimize for editing.
-						</div>
-					</div>
-				</div>
-			)}
+
 
 			<PanelView
 				title="Assets"
@@ -251,11 +231,21 @@ export function MediaView() {
 					/>
 				)}
 
+				{isProcessing && (
+					<div className="flex items-center gap-4 bg-accent/20 rounded-lg p-3 border border-border/50 text-sm mb-4">
+						<div className="flex items-center gap-2 flex-1">
+							<Loader2 className="size-4 animate-spin text-primary" />
+							<span className="text-primary font-medium">Processing {Math.round(progress)}%</span>
+						</div>
+						<span className="text-xs text-muted-foreground">Generating thumbnails...</span>
+					</div>
+				)}
+
 				{isDragOver || filteredMediaItems.length === 0 ? (
 					<MediaDragOverlay
 						isVisible={true}
-						isProcessing={false} // Progress is now handled by the full-screen overlay
-						progress={0}
+						isProcessing={isProcessing && filteredMediaItems.length === 0}
+						progress={progress}
 						onClick={openFilePicker}
 					/>
 				) : (
