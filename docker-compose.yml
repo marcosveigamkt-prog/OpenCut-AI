@@ -103,7 +103,6 @@ services:
       
       # HTTPS Router
       - "traefik.http.routers.opencut-ai.rule=Host(`167-86-99-131.sslip.io`) && PathPrefix(`/api/ai`)"
-      - "traefik.http.routers.opencut-ai.entrypoints=websecure"
       - "traefik.http.routers.opencut-ai.tls=true"
       - "traefik.http.middlewares.opencut-ai-strip.stripprefix.prefixes=/api/ai"
       - "traefik.http.routers.opencut-ai.middlewares=opencut-ai-strip"
@@ -289,7 +288,6 @@ services:
       
       # HTTPS Router
       - "traefik.http.routers.opencut-web.rule=Host(`167-86-99-131.sslip.io`)"
-      - "traefik.http.routers.opencut-web.entrypoints=websecure"
       - "traefik.http.routers.opencut-web.tls=true"
       - "traefik.http.services.opencut-web.loadbalancer.server.port=3000"
 
