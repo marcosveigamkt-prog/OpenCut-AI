@@ -99,7 +99,6 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=dokploy-network"
       
       # HTTPS Router
       - "traefik.http.routers.opencut-ai.rule=Host(`167-86-99-131.nip.io`) && PathPrefix(`/api/ai`)"
@@ -116,7 +115,6 @@ services:
       - "traefik.http.routers.opencut-ai-http.middlewares=opencut-ai-redirect-https"
     networks:
       - default
-      - dokploy-network
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8420/health || exit 1"]
       interval: 30s
@@ -290,7 +288,6 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=dokploy-network"
       
       # HTTPS Router
       - "traefik.http.routers.opencut-web.rule=Host(`167-86-99-131.nip.io`)"
@@ -305,7 +302,6 @@ services:
       - "traefik.http.routers.opencut-web-http.middlewares=opencut-web-redirect-https"
     networks:
       - default
-      - dokploy-network
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
       interval: 30s
@@ -327,8 +323,6 @@ volumes:
   image_generated:
 
 networks:
-  dokploy-network:
-    external: true
   default:
     name: opencut-network
     driver: bridge
