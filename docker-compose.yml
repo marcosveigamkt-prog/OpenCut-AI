@@ -101,16 +101,16 @@ services:
       - "traefik.enable=true"
       
       # HTTPS Router
-      - "traefik.http.routers.opencut-ai.rule=Host(`167-86-99-131.nip.io`) && PathPrefix(`/api/ai`)"
-      - "traefik.http.routers.opencut-ai.entrypoints=https"
+      - "traefik.http.routers.opencut-ai.rule=Host(`167-86-99-131.sslip.io`) && PathPrefix(`/api/ai`)"
+      - "traefik.http.routers.opencut-ai.entrypoints=websecure"
       - "traefik.http.routers.opencut-ai.tls.certresolver=letsencrypt"
       - "traefik.http.middlewares.opencut-ai-strip.stripprefix.prefixes=/api/ai"
       - "traefik.http.routers.opencut-ai.middlewares=opencut-ai-strip"
       - "traefik.http.services.opencut-ai.loadbalancer.server.port=8420"
       
       # HTTP Router (Redirects to HTTPS)
-      - "traefik.http.routers.opencut-ai-http.rule=Host(`167-86-99-131.nip.io`) && PathPrefix(`/api/ai`)"
-      - "traefik.http.routers.opencut-ai-http.entrypoints=http"
+      - "traefik.http.routers.opencut-ai-http.rule=Host(`167-86-99-131.sslip.io`) && PathPrefix(`/api/ai`)"
+      - "traefik.http.routers.opencut-ai-http.entrypoints=web"
       - "traefik.http.middlewares.opencut-ai-redirect-https.redirectscheme.scheme=https"
       - "traefik.http.routers.opencut-ai-http.middlewares=opencut-ai-redirect-https"
     networks:
@@ -264,9 +264,9 @@ services:
       - BETTER_AUTH_SECRET=your-production-secret-key-here
       - UPSTASH_REDIS_REST_URL=http://serverless-redis-http:80
       - UPSTASH_REDIS_REST_TOKEN=example_token
-      - NEXT_PUBLIC_SITE_URL=https://167-86-99-131.nip.io
+      - NEXT_PUBLIC_SITE_URL=https://167-86-99-131.sslip.io
       - NEXT_PUBLIC_MARBLE_API_URL=https://api.marblecms.com
-      - NEXT_PUBLIC_AI_BACKEND_URL=https://167-86-99-131.nip.io/api/ai
+      - NEXT_PUBLIC_AI_BACKEND_URL=https://167-86-99-131.sslip.io/api/ai
       - MARBLE_WORKSPACE_KEY=${MARBLE_WORKSPACE_KEY:-placeholder}
       - FREESOUND_CLIENT_ID=${FREESOUND_CLIENT_ID}
       - FREESOUND_API_KEY=${FREESOUND_API_KEY}
@@ -290,14 +290,14 @@ services:
       - "traefik.enable=true"
       
       # HTTPS Router
-      - "traefik.http.routers.opencut-web.rule=Host(`167-86-99-131.nip.io`)"
-      - "traefik.http.routers.opencut-web.entrypoints=https"
+      - "traefik.http.routers.opencut-web.rule=Host(`167-86-99-131.sslip.io`)"
+      - "traefik.http.routers.opencut-web.entrypoints=websecure"
       - "traefik.http.routers.opencut-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.opencut-web.loadbalancer.server.port=3000"
       
       # HTTP Router (Redirects to HTTPS)
-      - "traefik.http.routers.opencut-web-http.rule=Host(`167-86-99-131.nip.io`)"
-      - "traefik.http.routers.opencut-web-http.entrypoints=http"
+      - "traefik.http.routers.opencut-web-http.rule=Host(`167-86-99-131.sslip.io`)"
+      - "traefik.http.routers.opencut-web-http.entrypoints=web"
       - "traefik.http.middlewares.opencut-web-redirect-https.redirectscheme.scheme=https"
       - "traefik.http.routers.opencut-web-http.middlewares=opencut-web-redirect-https"
     networks:
